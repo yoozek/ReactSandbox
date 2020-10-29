@@ -14,17 +14,17 @@ function App() {
   useEffect(() => {
     Axios.get('https://restcountries.eu/rest/v2/all')
     .then(res => {
-      console.log(res.data)
       setCountries(res.data)
       setFilteredCountries(res.data)
     });
   }, [])
 
   const handleSearchBoxChange = (e) => {
-    console.log(e.target.value)
     const searchValue = e.target.value
     if (searchValue) {
-      setFilteredCountries(countries.filter(country => country.name.includes(searchValue)))
+      setFilteredCountries(countries.filter(country => {
+          return country.name.toLowerCase().includes(searchValue.toLowerCase());
+        }))
     } else {
       setFilteredCountries(countries)
     }
